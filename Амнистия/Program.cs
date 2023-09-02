@@ -73,7 +73,7 @@ namespace Амнистия
         {
             foreach(Criminal criminal in _criminals)
             {
-                Console.WriteLine($"Имя: {criminal.Name}, Статья: {criminal.Crime}");
+                criminal.ShowInfo();
             }
         }
 
@@ -81,9 +81,11 @@ namespace Амнистия
         {
             string amnestyCrime = "Антиправительственное";
 
-            var sortListOfCriminals = _criminals.Where(criminal => criminal.Crime != amnestyCrime);
+            var sortListOfCriminals = _criminals.Where(criminal => criminal.Crime == amnestyCrime).ToList();
 
-            foreach (Criminal criminal in sortListOfCriminals)
+            _criminals = _criminals.Except(sortListOfCriminals).ToList();
+
+            foreach (Criminal criminal in _criminals)
             {
                 criminal.ShowInfo();
             }
